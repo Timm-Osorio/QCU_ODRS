@@ -2,11 +2,33 @@
   import PHeader from '../../../components/Admin/pHeader2.svelte';
   import Psidebar from '../../../components/Admin/psidebar.svelte';
   import PBoxesaccounts from '../../../components/Admin/pBoxesaccounts.svelte';
+  import { onMount } from 'svelte';
+  import { db } from "$lib/firebase/firebase";
+  import { collection, getDocs } from "firebase/firestore";
   import { goto } from '$app/navigation';
 
+  
   function gotoDetails (){
               goto('/Admin/Detailsaccount')
     }
+    let selectedUser = [];
+
+  // Variable
+  /**
+   * @type {any[]}
+   */
+  let data = [];
+
+// Fetch data from Firestore collection
+  const fetchData = async () => {
+    const querySnapshot = await getDocs(collection(db, 'registrar'));
+    data = querySnapshot.docs.map(doc => doc.data());
+  };
+
+  onMount(fetchData);
+
+  
+
 </script>
 
 
@@ -38,6 +60,7 @@
             </thead>
             <tbody> 
               <!-- row 1 -->
+              {#each data as item}
               <tr>
               
                 <td>
@@ -47,168 +70,26 @@
                         <img src="/ICON.png" alt=""/>
                       </div>
                     </div>
+                    
                     <div>
-                      <div class="text font-bold text-black">Hart Hagerty</div>
+                     
+                      <div class="text font-bold text-black">{item.fname}</div>
                       <div class="text text-sm opacity-50 text-black font-bold">QCU</div>
                     </div>
                   </div>
                 </td>
                 <td>
                   
-                  <span class="badge badge-ghost badge-sm h-7 ">CCS registrar 1</span>
+                  <span class="badge badge-ghost badge-sm h-7 ">{item.dept}</span>
                 </td>
-                <td class="text-black">REG-101</td>
+                <td class="text-black">{item.uid}</td>
                 <th>
-                  <button on:click={gotoDetails} class="text-black btn btn-ghost btn-xs hover:bg-[#000450] hover:text-teal-100">DETAILS</button>
+                  <button on:click={() => selectedUser = item} on:click={gotoDetails} class="text-black btn btn-ghost btn-xs hover:bg-[#000450] hover:text-teal-100">DETAILS</button>
                 </th>
               </tr>
               <!-- row 2 -->
-              <tr>
               
-                <td>
-                  <div class="flex items-center gap-3">
-                    <div class="avatar">
-                      <div class="mask mask-squircle w-12 h-12 ">
-                        <img src="/ICON.png" alt=""/>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="text font-bold text-black">Hart Hagerty</div>
-                      <div class="text text-sm opacity-50 text-black font-bold">QCU</div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  
-                  <span class="badge badge-ghost badge-sm h-7">CCS registrar 2</span>
-                </td>
-                <td class="text-black">REG-102</td>
-                <th>
-                  <button class="text-black btn btn-ghost btn-xs hover:bg-[#000450] hover:text-teal-100">DETAILS</button>
-                </th>
-              </tr>
-              <!-- row 3 -->
-              <tr>
-               
-                <td>
-                  <div class="flex items-center gap-3">
-                    <div class="avatar">
-                      <div class="mask mask-squircle w-12 h-12">
-                        <img src="/ICON.png" alt=""/>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="font-bold text-black">Marjy Ferencz</div>
-                      <div class="text text-sm opacity-50 text-black font-bold">QCU</div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  
-                  <span class="badge badge-ghost badge-sm h-7">EDUK registrar 1</span>
-                </td>
-                <td class="text-black">REG-103</td>
-                <th>
-                  <button class="text-black btn btn-ghost btn-xs hover:bg-[#000450] hover:text-teal-100">DETAILS</button>
-                </th>
-              </tr>
-              <!-- row 4 -->
-              <tr>
-                
-                <td>
-                  <div class="flex items-center gap-3">
-                    <div class="avatar">
-                      <div class="mask mask-squircle w-12 h-12">
-                        <img src="/ICON.png" alt=""/>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="font-bold text-black">Yancy Tear</div>
-                      <div class="text text-sm opacity-50 text-black font-bold">QCU</div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                 
-                  <span class="badge badge-ghost badge-sm h-7">CBAA registrar 1</span>
-                </td>
-                <td class="text-black">REG-104</td>
-                <th>
-                  <button class="text-black btn btn-ghost btn-xs hover:bg-[#000450] hover:text-teal-100">DETAILS</button>
-                </th>
-              </tr>
-              <tr>
-                
-                <td>
-                  <div class="flex items-center gap-3">
-                    <div class="avatar">
-                      <div class="mask mask-squircle w-12 h-12">
-                        <img src="/ICON.png" alt=""/>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="font-bold text-black">Baby Calma</div>
-                      <div class="text text-sm opacity-50 text-black font-bold">QCU</div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  
-                  <span class="badge badge-ghost badge-sm h-7">COE registrar 1</span>
-                </td>
-                <td class="text-black">REG-105</td>
-                <th>
-                  <button class="text-black btn btn-ghost btn-xs hover:bg-[#000450] hover:text-teal-100">DETAILS</button>
-                </th>
-              </tr>
-              <tr>
-                
-                <td>
-                  <div class="flex items-center gap-3">
-                    <div class="avatar">
-                      <div class="mask mask-squircle w-12 h-12">
-                        <img src="/ICON.png" alt=""/>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="font-bold text-black">Brice Swyre</div>
-                      <div class="text text-sm opacity-50 text-black font-bold">QCU</div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  
-                  <span class="badge badge-ghost badge-sm h-7">COE registrar 1</span>
-                </td>
-                <td class="text-black">REG-106</td>
-                <th>
-                  <button class="text-black btn btn-ghost btn-xs hover:bg-[#000450] hover:text-teal-100">DETAILS</button>
-                </th>
-              </tr>
-              <tr>
-                
-                <td>
-                  <div class="flex items-center gap-3">
-                    <div class="avatar">
-                      <div class="mask mask-squircle w-12 h-12">
-                        <img src="/ICON.png" alt=""/>
-                      </div>
-                    </div>
-                    <div>
-                      <div class="font-bold text-black">Brice Swyre</div>
-                      <div class="text text-sm opacity-50 text-black font-bold">QCU</div>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  
-                  <span class="badge badge-ghost badge-sm h-7">COE registrar 1</span>
-                </td>
-                <td class="text-black">REG-107</td>
-                <th>
-                  <button class="text-black btn btn-ghost btn-xs hover:bg-[#000450] hover:text-teal-100">DETAILS</button>
-                </th>
-              </tr>
+              {/each}
             </tbody>
             <!-- foot -->
            

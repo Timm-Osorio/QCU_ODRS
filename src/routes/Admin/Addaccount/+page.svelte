@@ -3,43 +3,52 @@
   import Psidebar from '../../../components/Admin/psidebar.svelte';
   import PBoxesaccounts from '../../../components/Admin/pBoxesaccounts.svelte';
   import { goto } from '$app/navigation';
-    import { authHandlers } from "../../../store/store";
-    import { doc, setDoc } from 'firebase/firestore';
-    import { db } from "$lib/firebase/firebase";
+  import { authHandlers } from "../../../store/store";
+  import { doc, setDoc } from 'firebase/firestore';
+  import { db } from "$lib/firebase/firebase";
+  
 
+  //Page routing
   function gotoRegis () {
               goto('/Admin/Accounts')
   }
 
   let fn = "";
   let un = "";
-  let dept = "";
   let pass = "";
   let cpass = "";
-  let error = false;
+  let dept = "";
+
   let authenticating = false;
+  let error = false;
+
+  const departments = ['BECEd', 'BSIE', 'BSECE', 'BS Entrep', 'BSA', 'BSIT', 'BSIS', 'BSCS'];
 
   async function handleAuthentication() {
-    
-
     if(authenticating){
       return;
     }
     authenticating = true; 
-    if(pass === cpass){
+    if(pass === cpass){ 
     try {
       const userCredential = await authHandlers.signup(un, pass);
       console.log("userCredential:", userCredential); // Log userCredential object
       const user = userCredential.user;
-        setDoc(doc(db,'user', user.uid), {
+        await setDoc(doc(db,'user', user.uid), {
           role: "registrar"
         })
-        setDoc(doc(db, 'registrar', user.uid), {
+        await setDoc(doc(db, 'registrar', user.uid), {
           fname: fn,
-          Uname: un,
-          Dept: dept,
+          uname: un,
+          dept: dept,
+         
           uid: user.uid
         });
+        fn = "";
+        un = "";
+        pass = "";
+        cpass = "";
+        dept = "";
     } catch (err) {
       console.log("There was an auth error", err);
       error = true;
@@ -81,15 +90,26 @@
                 <div class="label">
                   <span class="label-text text-black text-[15px] font-medium">Username:</span>
                 </div>
-                <input bind:value={un} type="text" placeholder="Type here"  class="text-black bg-slate-300 input w-full max-w-xs shadow-sm border-[0.5px] border-[#0a0a0a2b]  " required />
+                <input bind:value={un} type="text" placeholder="name@educ.com"  class="text-black bg-slate-300 input w-full max-w-xs shadow-sm border-[0.5px] border-[#0a0a0a2b]  " required />
+                <div class="label">
+                  <span class="label-text-alt"></span>
+                  <span class="label-text-alt text-slate-600">Example@educ.com</span>
+                </div>
+                
               </label>
-
-              <label class="form-control w-full max-w-xs pt-4 ">
+              <label class="form-control w-full max-w-xs ">
                 <div class="label">
                   <span class="label-text text-black text-[15px] font-medium">Department:</span>
                 </div>
-                <input bind:value={dept} type="text" placeholder="Type here"  class="text-black bg-slate-300 input w-full max-w-xs shadow-sm border-[0.5px] border-[#0a0a0a2b] " required/>
+                  <select  bind:value={dept} class="select select-bordered w-full max-w-xs text-black bg-slate-300 shadow-sm border-[0.5px] border-[#0a0a0a2b]" >
+                    <option disabled selected class="text-slate-600">Select department</option>
+                    {#each departments as department}
+                      <option>{department}</option>
+                    {/each}
+                  </select>
               </label>
+
+             
             </div>
             <div class="w-full  p-1">
               <label class="form-control w-full max-w-xs ">

@@ -2,7 +2,7 @@
 // @ts-nocheck
   import { auth, db } from "$lib/firebase/firebase";
   import { doc, getDoc, setDoc } from "firebase/firestore";
-  import "../app.css";
+  import "../app.pcss";
   import Footer from "../components/Footer.svelte";
   import { onMount } from "svelte";
   import { authStore } from "../store/store";
@@ -67,5 +67,5 @@
 
 </script>
 
-<slot />
-<Footer />
+<slot></slot>
+<Footer></Footer>

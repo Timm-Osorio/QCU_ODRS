@@ -1,5 +1,6 @@
 <script>
     import { onMount, onDestroy } from 'svelte';
+    // @ts-ignore
     import { getFirestore, collection, getDocs } from "firebase/firestore";
     import 'firebase/firestore';
     import { db } from "$lib/firebase/firebase";
@@ -8,7 +9,7 @@
     let currentDate = new Date();
     let currentTime = new Date();
     let currentYear = new Date();
-    let studentCount = 0;
+    let studentCount = "...";
     let regisCount = 0;
   
     //CALL REAL TIME
@@ -36,6 +37,7 @@
           const userquerySnapshot = await getDocs(usersCollectionRef);
           const regisquerySnapshot = await getDocs(regisCollectionRef);
           
+          // @ts-ignore
           studentCount = userquerySnapshot.size;
           regisCount = regisquerySnapshot.size;
         } catch (error) {
@@ -58,16 +60,26 @@ onMount(fetchUserCount);
   </div>
 
   <div class="flex gap-10 text-center mx-auto p-5 justify-center pt-10">
-    <div class="h-[200px] w-[300px] bg-slate-100 rounded-lg shadow-lg"> 
-        <h1 class="text-[#101010c4] font-semibold text-[100px]">{studentCount}</h1>
+    <div class="h-[200px] w-[300px] bg-slate-100 rounded-lg shadow-lg p-5"> 
+      {#if studentCount === "..."}
+      <span class="loading loading-ring loading-lg w-[105px] bg-blue-900  "></span>
+      {:else}
+       <h1 class="text-[#101010c4] font-semibold text-[100px]">{studentCount}</h1>
+      {/if}
+        
         <h2 class="text-black font-bold text-[20px] ">Total User</h2>
     </div>
-    <div class="h-[200px] w-[300px] bg-slate-100 rounded-lg shadow-lg"> 
+    <div class="h-[200px] w-[300px] bg-slate-100 rounded-lg shadow-lg p-5"> 
         <h1 class="text-[#101010c4] font-semibold text-[100px]">6</h1>
         <h2 class="text-black font-bold text-[20px] ">Documents</h2>
     </div>
-    <div class="h-[200px] w-[300px] bg-slate-100 rounded-lg shadow-lg">
-        <h1 class="text-[#101010c4] font-semibold text-[100px]">{regisCount}</h1>
+    <div class="h-[200px] w-[300px] bg-slate-100 rounded-lg shadow-lg p-5">
+      {#if studentCount === "..."}
+      <span class="loading loading-ring loading-lg w-[105px] bg-blue-900  "></span>
+      {:else}
+      <h1 class="text-[#101010c4] font-semibold text-[100px]">{regisCount}</h1>
+      {/if}
+       
         <h2 class="text-black font-bold text-[20px] ">Total Registrar</h2> </div>
   </div>
 

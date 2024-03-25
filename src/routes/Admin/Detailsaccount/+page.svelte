@@ -8,6 +8,13 @@
     function gotoAccs () {
               goto('/Admin/Accounts');
     }
+
+
+
+
+
+
+    
 </script>
 <style>
     input::placeholder {
@@ -40,14 +47,14 @@
                     <div class="label">
                       <span class="label-text text-black text-[15px] font-medium ">Full name:</span>
                     </div>
-                    <input type="text" placeholder="Orosco Timotheo"  class="text-black bg-slate-300 input w-full max-w-xs shadow-sm border-[0.5px] border-[#0a0a0a2b]" />
+                    <input type="text"  class="text-black bg-slate-300 input w-full max-w-xs shadow-sm border-[0.5px] border-[#0a0a0a2b]" />
                   </label>
     
                   <label class="form-control w-full max-w-xs pt-4 ">
                     <div class="label">
                       <span class="label-text text-black text-[15px] font-medium">Username:</span>
                     </div>
-                    <input type="text" placeholder="REGISTRARCSS"  class="text-black bg-slate-300 input w-full max-w-xs shadow-sm border-[0.5px] border-[#0a0a0a2b] " />
+                    <input type="text"   class="text-black bg-slate-300 input w-full max-w-xs shadow-sm border-[0.5px] border-[#0a0a0a2b] " />
                   </label>
     
                   
@@ -59,13 +66,13 @@
                         <div class="label">
                           <span class="label-text text-black text-[15px] font-medium">Position:</span>
                         </div>
-                        <input type="text" placeholder="CSS reg1"  class="text-black bg-slate-300 input w-full max-w-xs shadow-sm border-[0.5px] border-[#0a0a0a2b] " />
+                        <input type="text" class="text-black bg-slate-300 input w-full max-w-xs shadow-sm border-[0.5px] border-[#0a0a0a2b] " />
                       </label>
                   <label class="form-control w-full max-w-xs pt-4 ">
                     <div class="label">
                       <span class="label-text text-black text-[15px] font-medium ">Pasword:</span>
                     </div>
-                    <input type="password" placeholder="MAHALKITA101"  class="text-black bg-slate-300 input w-full max-w-xs shadow-sm border-[0.5px] border-[#0a0a0a2b]" />
+                    <input type="password"  class="text-black bg-slate-300 input w-full max-w-xs shadow-sm border-[0.5px] border-[#0a0a0a2b]" />
                   </label>   
                  
                  

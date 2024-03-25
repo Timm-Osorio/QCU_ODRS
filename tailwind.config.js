@@ -8,6 +8,8 @@ export default {
     extend: {}
   },
   plugins: [require('daisyui'),
-  require('stwui/plugin')],
+  require('stwui/plugin'),
+],
+  
   
 };
